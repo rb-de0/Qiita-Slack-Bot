@@ -30,7 +30,7 @@ class QiitaSlackBot {
     private func send(text: String) {
         
         for user in targetUsers {
-            slackClient?.webAPI.sendMessage("@\(user)", text: text, asUser: true, success: nil, failure: nil)
+            slackClient?.webAPI.sendMessage(channel: "@\(user)", text: text, asUser: true, success: nil, failure: nil)
         }
     }
     
