@@ -25,7 +25,8 @@ class QiitaAPIManager {
     }
     
     private func transform(items: [QiitaItem]) -> String {
-        return items.map{ $0.title + "\n" + $0.url }.joined(separator: "\n\n")
+        
+        return items.map{ $0.title + " 【\($0.tags.map{$0.name}.joined(separator: "/")) 】" + "\n" + $0.url }.joined(separator: "\n\n")
     }
     
     private func formattedToday() -> String {
