@@ -7,12 +7,14 @@ class QiitaSlackBot {
     private weak var slackClient: Client?
     
     private let targetUsers: [String]
+    private let additinalMessage: String
     
     init(withConfig config: Config) {
         slackKit = SlackKit(withAPIToken: config.slackAPIKey)
         qiitaAPIManager = QiitaAPIManager(withAccessToken: config.qiitaAccessToken, searchTags: config.searchTags)
         
         targetUsers = config.targetUsers
+        additinalMessage = config.additinalMessage
         
         slackKit.onClientInitalization = {[weak self] slackClient in
             self?.slackClient = slackClient
@@ -29,8 +31,10 @@ class QiitaSlackBot {
     
     private func send(text: String) {
         
+        let sendMessage = additinalMessage + "\n" + text
+        
         for user in targetUsers {
-            slackClient?.webAPI.sendMessage(channel: "@\(user)", text: text, asUser: true, success: nil, failure: nil)
+            slackClient?.webAPI.sendMessage(channel: "@\(user)", text: sendMessage, asUser: true, success: nil, failure: nil)
         }
     }
     

@@ -6,6 +6,7 @@ struct Config: Decodable {
     let qiitaAccessToken: String
     let targetUsers: [String]
     let searchTags: [String]
+    let additinalMessage: String
     
     static func decode(_ e: Extractor) throws -> Config {
         
@@ -13,7 +14,8 @@ struct Config: Decodable {
             slackAPIKey: e <| "slackAPIKey",
             qiitaAccessToken: e <| "qiitaAccessToken",
             targetUsers: e <|| "targetUsers",
-            searchTags: e <|| "searchTags"
+            searchTags: e <|| "searchTags",
+            additinalMessage: e <| "additinalMessage"
         )
     }
 }
