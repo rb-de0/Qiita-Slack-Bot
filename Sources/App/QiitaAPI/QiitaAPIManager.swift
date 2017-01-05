@@ -13,7 +13,7 @@ class QiitaAPIManager {
     }
     
     func fetchTodayItems() {
-
+        
         QiitaTodayItemRequest(tags: searchTags, day: formattedToday(), accessToken: accessToken)
             .send {[weak self] items in
                 guard let strongSelf = self else {
@@ -29,9 +29,10 @@ class QiitaAPIManager {
     }
     
     private func formattedToday() -> String {
+        let yesterday = Date(timeIntervalSinceNow: -24 * 60 * 60)
         let formatter = DateFormatter()
         formatter.locale = Locale(identifier: "ja_JP")
         formatter.dateFormat = "yyyy-MM-dd"
-        return formatter.string(from: Date())
+        return formatter.string(from: yesterday)
     }
 }
